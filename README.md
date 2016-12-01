@@ -1,13 +1,17 @@
 # babel-plugin-mobx-deep-action
 
-Allow to reduce boilerplate of writing async actions
+Allow to reduce boilerplate of writing async actions. Based on assumption, that all code createdinside an action, should be handled as action too.
 
 ## Example
 
 **In**
 
 ```js
-// input code
+import { action } from "mobx";
+
+action(function doSome() {
+  setTimeout(function () {});
+});
 ```
 
 **Out**
@@ -15,7 +19,11 @@ Allow to reduce boilerplate of writing async actions
 ```js
 "use strict";
 
-// output code
+import { action } from "mobx";
+
+action(function doSome() {
+  setTimeout(action(function () {});
+});
 ```
 
 ## Installation
