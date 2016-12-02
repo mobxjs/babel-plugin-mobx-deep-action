@@ -3,58 +3,49 @@ import { action } from "mobx";
 function a1() {}
 
 action(function doSome() {
-  setTimeout(function () {});
+  setTimeout(action(function () {}));
 });
 
 action("named", function doSome() {
-  setTimeout(function () {});
+  setTimeout(action(function () {}));
+});
+
+action("named", function doSome() {
+  setTimeout(action(function () {}));
 });
 
 class SomeClass {
   @action
   m1() {
-    setTimeout(function () {});
-    setTimeout(() => {});
+    setTimeout(action(function () {}));
+    setTimeout(action(() => {}));
   }
 
   @action("name")
   m2() {
-    setTimeout(function () {});
-    setTimeout(() => {});
+    setTimeout(action(function () {}));
+    setTimeout(action(() => {}));
   }
 
   @action("named")
   m3 = function () {
-    setTimeout(function () {});
-    setTimeout(() => {});
+    setTimeout(action(function () {}));
+    setTimeout(action(() => {}));
   };
 
   m4 = action(function () {
-    setTimeout(function () {});
-    setTimeout(() => {});
+    setTimeout(action(function () {}));
+    setTimeout(action(() => {}));
   });
 
   @action
   m5 = () => {};
 
   m6 = action(() => {
-    setTimeout(function () {});
-    setTimeout(() => {});
+    setTimeout(action(function () {}));
+    setTimeout(action(() => {}));
   });
 
   @action
   m7 = blabla;
-
-  @action
-  async m8() {
-    const a1 = await w1;
-    const a2 = await w2;
-    const a3 = await w3;
-  }
-
-  @action
-  m9 = function* () {
-    yield 1;
-    yield 2;
-  };
 }

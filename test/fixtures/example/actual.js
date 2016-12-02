@@ -10,6 +10,10 @@ action("named", function doSome() {
   setTimeout(function () {});
 });
 
+action("named", function doSome() {
+  setTimeout(action(function () {}));
+});
+
 class SomeClass {
   @action
   m1() {
@@ -44,17 +48,4 @@ class SomeClass {
 
   @action
   m7 = blabla;
-
-  @action
-  async m8() {
-    const a1 = await w1;
-    const a2 = await w2;
-    const a3 = await w3;
-  }
-
-  @action
-  m9 = function* () {
-    yield 1;
-    yield 2;
-  };
 }

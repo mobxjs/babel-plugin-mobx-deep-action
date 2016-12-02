@@ -8,12 +8,30 @@ export default function (babel) {
     return t.isFunctionExpression.apply(t, arguments) || t.isArrowFunctionExpression.apply(t, arguments);
   }
 
-  // TODO need implementation
   const traverseActionBody = {
+    CallExpression(path) {
+      const node = path.node;
+      const actionIdentifier = this.actionIdentifier;
+      if (node.callee.name === actionIdentifier) {
+      	if (
+          (node.arguments.length === 1 && isAnyFunctionExpression(node.arguments[0])) ||
+          (node.arguments.length === 2 && isAnyFunctionExpression(node.arguments[1]))
+        ) {
+          path.skip();
+        }
+      }
+    },
+    ["FunctionExpression|ArrowFunctionExpression"](path) {
+      path.replaceWith(t.CallExpression(
+        t.Identifier(this.actionIdentifier),
+        [path.node]
+      ));
+    }
   };
 
   const traverseSibling = {
   	CallExpression(path) {
+      console.log("here");
       const node = path.node;
       const actionIdentifier = this.actionIdentifier;
       if (node.callee.name === actionIdentifier) {
@@ -55,7 +73,7 @@ export default function (babel) {
     name: "mobx-make-action-deep-transform", // not required
     visitor: {
       ImportDeclaration(path) {
-      	if (path.node.source.value === "mobx") {
+        if (path.node.source.value === "mobx") {
           for (const specifier of path.node.specifiers) {
           	if (specifier.imported.name === "action") {
               const actionIdentifier = specifier.local.name;

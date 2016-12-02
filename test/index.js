@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import assert from 'assert';
-import { transformFromAst } from 'babel-core';
+import { transformFromAst, transformFileSync } from 'babel-core';
 import * as babylon from 'babylon';
 import plugin from '../src';
 
@@ -15,15 +15,18 @@ describe('Allow to reduce boilerplate of writing async actions', () => {
     it(`should ${caseName.split('-').join(' ')}`, () => {
       const fixtureDir = path.join(fixturesDir, caseName);
       const actualPath = path.join(fixtureDir, 'actual.js');
-      const actual = transformFromAst(
+      const actual = transformFileSync(actualPath).code;
+      /*const actual = transformFromAst(
         babylon.parse(
           fs.readFileSync(actualPath).toString(),
           {
             sourceType: "module",
             plugins: "*"
           }
-        )
-      ).code;
+        ),
+        "",
+        JSON.parse(fs.readFileSync(path.join(fixtureDir, ".babelrc"), "utf8"))
+      ).code;*/
 
       const expected = fs.readFileSync(
           path.join(fixtureDir, 'expected.js')
