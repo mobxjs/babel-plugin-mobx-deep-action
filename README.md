@@ -1,6 +1,6 @@
 # babel-plugin-mobx-deep-action
 
-[![Build Status](https://travis-ci.org/Strate/babel-plugin-mobx-deep-action.svg?branch=master)](https://travis-ci.org/Strate/babel-plugin-mobx-deep-action)
+[![Build Status](https://travis-ci.org/mobxjs/babel-plugin-mobx-deep-action.svg?branch=master)](https://travis-ci.org/mobxjs/babel-plugin-mobx-deep-action)
 
 Allow to reduce boilerplate of writing async actions.
 Based on assumption, that all code created inside an action,
