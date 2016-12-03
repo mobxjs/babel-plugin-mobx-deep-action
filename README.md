@@ -72,7 +72,7 @@ require("babel-core").transform("code", {
 ```
 
 
-## <a id="tod-usage-async"></a> Usage for async and generator functions.
+## <a id="toc-usage-async"></a> Usage for async and generator functions.
 
 This plugin do nothing special for async and generator functions. So, this code
 would work unexpected:
