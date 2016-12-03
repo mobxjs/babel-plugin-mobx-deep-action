@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-mobx-deep-action",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Allow to reduce boilerplate of writing async actions",
   "repository": "Strate/babel-plugin-mobx-deep-action",
   "author": "Strate <strate@yandex.ru>",
