@@ -31,7 +31,6 @@ export default function (babel) {
 
   const traverseSibling = {
   	CallExpression(path) {
-      console.log("here");
       const node = path.node;
       const actionIdentifier = this.actionIdentifier;
       if (node.callee.name === actionIdentifier) {

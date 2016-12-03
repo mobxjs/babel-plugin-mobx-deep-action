@@ -2,9 +2,13 @@
   "parserOpts":{
     "plugins":["decorators", "classProperties"]
   },
-  "plugins": [
-    [
-      "../../../src"
-    ]
+  "passPerPreset": true,
+  "presets": [
+    {
+      "plugins": ["transform-regenerator"]
+    },
+    {
+      "plugins": ["../../../src"]
+    }
   ]
 }

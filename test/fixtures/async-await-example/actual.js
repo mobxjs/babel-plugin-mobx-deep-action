@@ -7,6 +7,11 @@ action(function* doSome() {
   yield 2;
 });
 
+action(async function doSomeSpecial() {
+  await 1;
+  await 2;
+})
+
 action(async () => {
   await 1;
   await 2;
