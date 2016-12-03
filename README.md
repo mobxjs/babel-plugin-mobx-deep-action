@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Strate/babel-plugin-mobx-deep-action.svg?branch=master)](https://travis-ci.org/Strate/babel-plugin-mobx-deep-action)
 
 Allow to reduce boilerplate of writing async actions.
-Based on assumption, that all code createdinside an action,
+Based on assumption, that all code created inside an action,
 should be handled as action too.
 
 This plugin scans for all functions, marked as actions, and then marks all
@@ -38,6 +38,38 @@ action(function doSome() {
   }));
 });
 ```
+
+## Caveats
+
+Plugin support only ES6 imports. Only this imports are supported:
+```
+import {action} from "mobx";
+```
+```
+import {action as actionAlias} from "mobx";
+```
+```
+import * as mobx from "mobx";
+```
+```
+import * as mobxAlias from "mobx";
+```
+For example, this cases are **not supported**:
+```
+const mobx = require("mobx")
+```
+```
+const {action} = require("mobx")
+```
+```
+import * as mobx from "my-mobx-alias"
+```
+```
+import * as mobx from "mobx";
+const {action} = mobx;
+action(function() {});
+```
+
 
 ## Installation
 
