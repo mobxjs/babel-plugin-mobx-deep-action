@@ -89,7 +89,7 @@ async function handler() {
 To get that code worked, you should firstly apply `transform-regenerator` babel
 plugin, and then this one. Unfortunatelly, beacuse of internal babel architecture,
 `transform-regenerator` should be applied strictly before this plugin, which could
-be achieved with this condifuration:
+be achieved with this configuration:
 
 #### .babelrc
 
