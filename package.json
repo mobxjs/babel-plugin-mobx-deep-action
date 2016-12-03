@@ -1,4 +1,5 @@
 {
+  "name": "babel-plugin-mobx-deep-action",
   "version": "0.0.0",
   "description": "Allow to reduce boilerplate of writing async actions",
   "repository": "Strate/babel-plugin-mobx-deep-action",
