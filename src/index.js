@@ -19,20 +19,16 @@ export default function (babel) {
   }
 
   const traverseActionBody = {
-    CallExpression(path) {
-      const node = path.node;
+    ["FunctionExpression|ArrowFunctionExpression"](path) {
       const actionIdentifier = this.actionIdentifier;
       const mobxNamespaceIdentifier = this.mobxNamespaceIdentifier;
-      if (isAction(node.callee, actionIdentifier, mobxNamespaceIdentifier)) {
-        if (
-          (node.arguments.length === 1 && isAnyFunctionExpression(node.arguments[0])) ||
-          (node.arguments.length === 2 && isAnyFunctionExpression(node.arguments[1]))
-        ) {
-          path.skip();
+      path.get('body').traverse(traverseActionBody, {actionIdentifier, mobxNamespaceIdentifier})
+      path.skip()
+      for (let currentPath = path.parentPath; t.isCallExpression(currentPath.node); currentPath = currentPath.parentPath) {
+        if (isAction(currentPath.node.callee, actionIdentifier, mobxNamespaceIdentifier)) {
+          return;
         }
       }
-    },
-    ["FunctionExpression|ArrowFunctionExpression"](path) {
       path.replaceWith(t.CallExpression(
         this.actionIdentifier
           ? t.Identifier(this.actionIdentifier)
@@ -49,10 +45,10 @@ export default function (babel) {
       const actionIdentifier = this.actionIdentifier;
       const mobxNamespaceIdentifier = this.mobxNamespaceIdentifier;
       if (isAction(node.callee, actionIdentifier, mobxNamespaceIdentifier)) {
-        if (node.arguments.length === 1 && isAnyFunctionExpression(node.arguments[0])) {
+        if (node.arguments.length === 1) {
           path.get('arguments.0').traverse(traverseActionBody, {actionIdentifier, mobxNamespaceIdentifier})
           path.skip();
-        } else if (node.arguments.length === 2 && isAnyFunctionExpression(node.arguments[1])) {
+        } else if (node.arguments.length === 2) {
           path.get('arguments.1').traverse(traverseActionBody, {actionIdentifier, mobxNamespaceIdentifier})
           path.skip();
         }

@@ -1,0 +1,9 @@
+import { action } from "mobx";
+
+action(other(deep(wrapper(function () {
+  let a = action(function () {
+    let b = action(function () {
+      let c = action(function () {});
+    });
+  });
+}))));
