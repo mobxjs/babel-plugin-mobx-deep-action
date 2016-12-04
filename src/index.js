@@ -24,10 +24,9 @@ export default function (babel) {
       const mobxNamespaceIdentifier = this.mobxNamespaceIdentifier;
       path.get('body').traverse(traverseActionBody, {actionIdentifier, mobxNamespaceIdentifier})
       path.skip()
-      for (let currentPath = path.parentPath; t.isCallExpression(currentPath.node); currentPath = currentPath.parentPath) {
-        if (isAction(currentPath.node.callee, actionIdentifier, mobxNamespaceIdentifier)) {
-          return;
-        }
+      // if current node parent is call expression and this call is action call, skip wrapping
+      if (t.isCallExpression(path.parentPath.node) && isAction(path.parentPath.node.callee, actionIdentifier, mobxNamespaceIdentifier)) {
+        return;
       }
       path.replaceWith(t.CallExpression(
         this.actionIdentifier
@@ -67,7 +66,7 @@ export default function (babel) {
             if (t.isClassMethod(path.node)) {
               path.get('body').traverse(traverseActionBody, {actionIdentifier, mobxNamespaceIdentifier})
               path.skip();
-            } else if (t.isClassProperty(path.node) && isAnyFunctionExpression(path.node.value)) {
+            } else if (t.isClassProperty(path.node)) {
               path.get('value').traverse(traverseActionBody, {actionIdentifier, mobxNamespaceIdentifier})
               path.skip();
             }

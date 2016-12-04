@@ -23,3 +23,29 @@ action(async () => {
     await 2,
   ]
 });
+
+class SomeClass {
+  @action
+  async method() {
+    await 1;
+    await 2;
+  }
+
+  @action("named")
+  async method1() {
+    await 1;
+    await 2;
+  }
+
+  @action
+  generatorMethod = function* () {
+    yield 1;
+    yield 2;
+  }
+
+  @action("named")
+  generatorMethod2 = function* () {
+    yield 1;
+    yield 2;
+  }
+}

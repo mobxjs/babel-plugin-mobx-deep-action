@@ -4,7 +4,7 @@ import { action } from "mobx";
 
 function a1() {}
 
-action(regeneratorRuntime.mark(function doSome() {
+action(regeneratorRuntime.mark(action(function doSome() {
   return regeneratorRuntime.wrap(action(function doSome$(_context) {
     while (1) switch (_context.prev = _context.next) {
       case 0:
@@ -20,7 +20,7 @@ action(regeneratorRuntime.mark(function doSome() {
         return _context.stop();
     }
   }), doSome, this);
-}));
+})));
 
 action(function doSomeSpecial() {
   return regeneratorRuntime.async(action(function doSomeSpecial$(_context2) {
@@ -81,3 +81,81 @@ action(() => {
     }
   }), null, _this);
 });
+
+class SomeClass {
+  @action
+  method() {
+    return regeneratorRuntime.async(action(function _callee3$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
+          return regeneratorRuntime.awrap(1);
+
+        case 2:
+          _context5.next = 4;
+          return regeneratorRuntime.awrap(2);
+
+        case 4:
+        case "end":
+          return _context5.stop();
+      }
+    }), null, this);
+  }
+
+  @action("named")
+  method1() {
+    return regeneratorRuntime.async(action(function _callee4$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.next = 2;
+          return regeneratorRuntime.awrap(1);
+
+        case 2:
+          _context6.next = 4;
+          return regeneratorRuntime.awrap(2);
+
+        case 4:
+        case "end":
+          return _context6.stop();
+      }
+    }), null, this);
+  }
+
+  @action
+  generatorMethod = regeneratorRuntime.mark(action(function _callee5() {
+    return regeneratorRuntime.wrap(action(function _callee5$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
+        case 0:
+          _context7.next = 2;
+          return 1;
+
+        case 2:
+          _context7.next = 4;
+          return 2;
+
+        case 4:
+        case "end":
+          return _context7.stop();
+      }
+    }), _callee5, this);
+  }));
+
+  @action("named")
+  generatorMethod2 = regeneratorRuntime.mark(action(function _callee6() {
+    return regeneratorRuntime.wrap(action(function _callee6$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
+        case 0:
+          _context8.next = 2;
+          return 1;
+
+        case 2:
+          _context8.next = 4;
+          return 2;
+
+        case 4:
+        case "end":
+          return _context8.stop();
+      }
+    }), _callee6, this);
+  }));
+}
