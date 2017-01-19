@@ -166,7 +166,7 @@ later preset:
 }
 ```
 
-## <a id="#toc-typescript-decorators"></a> Typescript decorators.
+## <a id="toc-typescript-decorators"></a> Typescript decorators.
 
 This plugin could handle decorators code, emitted from typescript, such as:
 
