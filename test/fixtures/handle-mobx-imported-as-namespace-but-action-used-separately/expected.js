@@ -6,5 +6,5 @@ action(function () {
 });
 
 mobx.action(function () {
-  setTimeout(mobx.action(function () {}));
+  setTimeout(action(function () {}));
 });

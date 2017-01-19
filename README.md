@@ -10,7 +10,8 @@ should be handled as action too.
 This plugin scans for all functions, marked as actions, and then marks all
 nested functions, which created inside actions as actions too.
 
-[Usage with async and generator functions](#toc-usage-async)
+* [Usage with async and generator functions](#toc-usage-async)
+* [Typescript decorators](#toc-typescript-decorators)
 
 ## Example
 
@@ -164,3 +165,26 @@ later preset:
   ]
 }
 ```
+
+## <a id="#toc-typescript-decorators"></a> Typescript decorators.
+
+This plugin could handle decorators code, emitted from typescript, such as:
+
+```js
+import * as tslib_1 from "tslib";
+import { action } from "mobx";
+export default class Class2 {
+    async method() {
+        const a = (other) => { };
+        return a(function () { });
+    }
+}
+tslib_1.__decorate([
+    action
+], Class2.prototype, "method", null);
+```
+
+To get this code worked, you should enable [importHelpers](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
+compiler option, and get [tslib](https://www.npmjs.com/package/tslib) package installed. Also, typescript
+should emit es6 modules, so, you should target your compiler to es2015+. That's all,
+plugin detect import from "tslib" and handle typescript decorators.
