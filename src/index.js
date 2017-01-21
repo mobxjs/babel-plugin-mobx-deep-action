@@ -96,13 +96,14 @@ export default function (babel) {
   return {
     name: "mobx-deep-action-transform",
     visitor: {
-      Program(path) {
+      Program(path, state) {
         let actionIdentifier;
         let mobxNamespaceIdentifier;
         let tslibNamespaceIdentifier;
+        const mobxPackage = state.opts && state.opts["mobx-package"] || "mobx"
         path.traverse({
           ImportDeclaration(path) {
-            if (path.node.source.value === "mobx") {
+            if (path.node.source.value === mobxPackage) {
               for (const specifier of path.node.specifiers) {
                 if (t.isImportNamespaceSpecifier(specifier) || (specifier.imported.name === "action")) {
                   if (t.isImportNamespaceSpecifier(specifier)) {

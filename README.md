@@ -12,6 +12,7 @@ nested functions, which created inside actions as actions too.
 
 * [Usage with async and generator functions](#toc-usage-async)
 * [Typescript decorators](#toc-typescript-decorators)
+* [Use other package](#toc-mobx-package)
 
 ## Example
 
@@ -188,3 +189,19 @@ To get this code worked, you should enable [importHelpers](https://www.typescrip
 compiler option, and get [tslib](https://www.npmjs.com/package/tslib) package installed. Also, typescript
 should emit es6 modules, so, you should target your compiler to es2015+. That's all,
 plugin detect import from "tslib" and handle typescript decorators.
+
+## <a id="toc-mobx-package"></a> Use other package.
+
+If you use wrapper for "mobx" package, you can pass it's name to plugin:
+
+#### .babelrc
+
+```json5
+{
+  "plugins": [
+    ["mobx-deep-action", {
+      "mobx-package": "mobx-custom"
+    }]
+  ]
+}
+```
