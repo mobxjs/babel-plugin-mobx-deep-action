@@ -72,8 +72,29 @@ export default function (babel) {
           void 0 !== explicitClasses[classDeclaration.node.id.name][path.node.key.name]
         )
       ) {
+        if (path.node.key.name === "constructor") {
+          path.get('body').get('body').forEach(cPath => {
+            if (cPath.isExpressionStatement()) {
+              const exprPath = cPath.get('expression')
+              if (exprPath.isAssignmentExpression() && exprPath.get('operator').node === '=') {
+                const leftPath = exprPath.get('left')
+                const rightPath = exprPath.get('right')
+                if (
+                  leftPath.isMemberExpression() &&
+                  leftPath.get('object').isThisExpression() &&
+                  leftPath.get('property').isIdentifier() &&
+                  leftPath.get('property').node.name in explicitClasses[classDeclaration.node.id.name] &&
+                  (rightPath.isArrowFunctionExpression() || rightPath.isFunctionExpression())
+                ) {
+                  rightPath.get('body').traverse(traverseActionBody, {actionIdentifier, mobxNamespaceIdentifier})
+                }
+              }
+            }
+          })
+        } else {
           path.get('body').traverse(traverseActionBody, {actionIdentifier, mobxNamespaceIdentifier})
-          path.skip();
+        }
+        path.skip();
       } else if (path.node.decorators) {
         for (const {expression} of path.node.decorators) {
           if (

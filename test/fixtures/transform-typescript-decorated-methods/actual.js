@@ -7,6 +7,9 @@ class Class1 {
             const a = (other) => { };
             return a(function () { });
         };
+        this.method2 = () => {
+            return function() {}
+        }
     }
     method() {
         const a = (other) => { };

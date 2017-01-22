@@ -3,10 +3,13 @@ import { action } from "mobx";
 import * as mobx from "mobx";
 class Class1 {
     constructor() {
-        this.method1 = action(async () => {
+        this.method1 = async () => {
             const a = action(other => {});
             return a(action(function () {}));
-        });
+        };
+        this.method2 = () => {
+            return function () {};
+        };
     }
     method() {
         const a = action(other => {});
