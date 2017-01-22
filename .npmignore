@@ -1,3 +1,10 @@
 node_modules
 *.log
 src
+.idea
+.vscode
+test
+.travis.yml
+jsconfig.json
+.babelrc
+.eslintrc.json
