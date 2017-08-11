@@ -11,6 +11,11 @@ export default function (babel) {
   function isAction(node, actionIdentifier, mobxNamespaceIdentifier) {
     return (actionIdentifier && t.isIdentifier(node, {name: actionIdentifier})) ||
         (
+          t.isMemberExpression(node) &&
+          t.isIdentifier(node.object, {name: 'action'}) &&
+          t.isIdentifier(node.property, {name: "bound"})
+        ) ||
+        (
           mobxNamespaceIdentifier &&
           t.isMemberExpression(node) &&
           t.isIdentifier(node.object, {name: mobxNamespaceIdentifier}) &&
