@@ -6,7 +6,15 @@ action(function doSome() {
   setTimeout(function () {});
 });
 
+action.bound(function doSome() {
+  setTimeout(function () {});
+});
+
 action("named", function doSome() {
+  setTimeout(function () {});
+});
+
+action.bound("named", function doSome() {
   setTimeout(function () {});
 });
 
@@ -16,6 +24,12 @@ action("named", function doSome() {
 
 class SomeClass {
   @action
+  m1() {
+    setTimeout(function () {});
+    setTimeout(() => {});
+  }
+
+  @action.bound
   m1() {
     setTimeout(function () {});
     setTimeout(() => {});
