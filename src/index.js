@@ -27,7 +27,7 @@ export default function (babel) {
     ["FunctionExpression|ArrowFunctionExpression"](path) {
       const actionIdentifier = this.actionIdentifier;
       const mobxNamespaceIdentifier = this.mobxNamespaceIdentifier;
-      path.get('body').traverse(traverseActionBody, {actionIdentifier, mobxNamespaceIdentifier})
+      path.traverse(traverseActionBody, {actionIdentifier, mobxNamespaceIdentifier})
       path.skip()
       // if current node parent is call expression and this call is action call, skip wrapping
       if (t.isCallExpression(path.parentPath.node) && isAction(path.parentPath.node.callee, actionIdentifier, mobxNamespaceIdentifier)) {
