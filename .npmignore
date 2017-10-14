@@ -8,3 +8,4 @@ test
 jsconfig.json
 .babelrc
 .eslintrc.json
+package-lock.json
