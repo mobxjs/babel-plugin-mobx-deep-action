@@ -1,0 +1,8 @@
+{
+  "parserOpts":{
+    "plugins":["decorators", "classProperties"]
+  },
+  "plugins": [
+    ["../../../src"]
+  ]
+}

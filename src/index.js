@@ -1,5 +1,5 @@
 export default function (babel) {
-  const { types: t } = babel;
+  const {types: t} = babel;
 
   /**
    * t.isFunctionExpression() || t.isArrowFunctionExpression()
@@ -10,17 +10,17 @@ export default function (babel) {
 
   function isAction(node, actionIdentifier, mobxNamespaceIdentifier) {
     return (actionIdentifier && t.isIdentifier(node, {name: actionIdentifier})) ||
-        (
-          t.isMemberExpression(node) &&
-          t.isIdentifier(node.object, {name: 'action'}) &&
-          t.isIdentifier(node.property, {name: "bound"})
-        ) ||
-        (
-          mobxNamespaceIdentifier &&
-          t.isMemberExpression(node) &&
-          t.isIdentifier(node.object, {name: mobxNamespaceIdentifier}) &&
-          t.isIdentifier(node.property, {name: "action"})
-        )
+      (
+        t.isMemberExpression(node) &&
+        t.isIdentifier(node.object, {name: 'action'}) &&
+        t.isIdentifier(node.property, {name: "bound"})
+      ) ||
+      (
+        mobxNamespaceIdentifier &&
+        t.isMemberExpression(node) &&
+        t.isIdentifier(node.object, {name: mobxNamespaceIdentifier}) &&
+        t.isIdentifier(node.property, {name: "action"})
+      )
   }
 
   const traverseActionBody = {
@@ -165,11 +165,23 @@ export default function (babel) {
               node.arguments.length === 4 &&
               t.isArrayExpression(node.arguments[0]) &&
               (
-                node.arguments[0].elements.some(e => t.isIdentifier(e, {name: actionIdentifier})) ||
                 node.arguments[0].elements.some(e =>
-                  t.isMemberExpression(e) &&
-                  t.isIdentifier(e.object, {name: mobxNamespaceIdentifier}) &&
-                  t.isIdentifier(e.property, {name: "action"})
+                  (
+                    t.isIdentifier(e, {name: actionIdentifier})
+                  ) ||
+                  (
+                    t.isMemberExpression(e) &&
+                    t.isIdentifier(e.object, {name: mobxNamespaceIdentifier}) &&
+                    t.isIdentifier(e.property, {name: "action"})
+                  ) || (
+                    t.isCallExpression(e) &&
+                    t.isIdentifier(e.callee, {name: actionIdentifier})
+                  ) || (
+                    t.isCallExpression(e) &&
+                    t.isMemberExpression(e.callee) &&
+                    t.isIdentifier(e.callee.object, {name: mobxNamespaceIdentifier}) &&
+                    t.isIdentifier(e.callee.property, {name: "action"})
+                  )
                 )
               ) &&
               t.isMemberExpression(node.arguments[1]) &&
