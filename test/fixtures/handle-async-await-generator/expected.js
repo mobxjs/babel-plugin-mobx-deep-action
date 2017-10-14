@@ -4,7 +4,7 @@ import { action } from "mobx";
 
 function a1() {}
 
-action(regeneratorRuntime.mark(action(function doSome() {
+action( /*#__PURE__*/regeneratorRuntime.mark(action(function doSome() {
   return regeneratorRuntime.wrap(action(function doSome$(_context) {
     while (1) switch (_context.prev = _context.next) {
       case 0:
@@ -122,7 +122,7 @@ class SomeClass {
   }
 
   @action
-  generatorMethod = regeneratorRuntime.mark(action(function _callee5() {
+  generatorMethod = /*#__PURE__*/regeneratorRuntime.mark(action(function _callee5() {
     return regeneratorRuntime.wrap(action(function _callee5$(_context7) {
       while (1) switch (_context7.prev = _context7.next) {
         case 0:
@@ -141,7 +141,7 @@ class SomeClass {
   }));
 
   @action("named")
-  generatorMethod2 = regeneratorRuntime.mark(action(function _callee6() {
+  generatorMethod2 = /*#__PURE__*/regeneratorRuntime.mark(action(function _callee6() {
     return regeneratorRuntime.wrap(action(function _callee6$(_context8) {
       while (1) switch (_context8.prev = _context8.next) {
         case 0:
