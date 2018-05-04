@@ -1,3 +1,5 @@
+# deprecated, see https://github.com/Strate/babel-plugin-mobx-async-action
+
 # babel-plugin-mobx-deep-action
 
 [![Build Status](https://travis-ci.org/mobxjs/babel-plugin-mobx-deep-action.svg?branch=master)](https://travis-ci.org/mobxjs/babel-plugin-mobx-deep-action)
