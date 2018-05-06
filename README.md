@@ -1,5 +1,3 @@
-# deprecated, see https://github.com/Strate/babel-plugin-mobx-async-action
-
 # babel-plugin-mobx-deep-action
 
 [![Build Status](https://travis-ci.org/mobxjs/babel-plugin-mobx-deep-action.svg?branch=master)](https://travis-ci.org/mobxjs/babel-plugin-mobx-deep-action)
@@ -111,63 +109,7 @@ require("babel-core").transform("code", {
 
 ## <a id="toc-usage-async"></a> Usage for async and generator functions.
 
-This plugin do nothing special for async and generator functions. So, this code
-would work unexpected:
-
-```js
-@action
-async function handler() {
-  const items = await fetch("/api/items");
-  this.items = items; // <- this line called outside an action,
-                      // causing error in strict mode
-}
-```
-
-To get that code worked, you should firstly apply `transform-regenerator` babel
-plugin, and then this one. Unfortunatelly, beacuse of internal babel architecture,
-`transform-regenerator` should be applied strictly before this plugin, which could
-be achieved with this configuration:
-
-#### .babelrc
-
-```json5
-{
-  "passPerPreset": true, // this is required
-  "presets": [
-    {
-      "plugins": ["transform-regenerator"]
-    },
-    {
-      "plugins": ["mobx-deep-action"]
-    },
-    // your rest presets goes here, for example:
-    "latest"
-  ]
-}
-```
-
-If you use decorators, you should apply `transform-decorators-legacy` inside
-later preset:
-
-#### .babelrc
-
-```json5
-{
-  "passPerPreset": true, // this is required
-  "presets": [
-    {
-      "plugins": ["transform-regenerator"]
-    },
-    {
-      "plugins": ["mobx-deep-action"]
-    },
-    {
-      "plugins": ["babel-plugin-transform-decorators-legacy"]
-    }
-    // your rest presets goes here.
-  ]
-}
-```
+see https://github.com/Strate/babel-plugin-mobx-async-action
 
 ## <a id="toc-typescript-decorators"></a> Typescript decorators.
 
