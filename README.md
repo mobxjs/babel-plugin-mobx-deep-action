@@ -44,7 +44,7 @@ action(function doSome() {
 
 ## Caveats
 
-Plugin support only ES6 imports. Only this imports are supported:
+Plugin support only ES6 imports. Only these imports are supported:
 ```
 import {action} from "mobx";
 ```
@@ -57,7 +57,7 @@ import * as mobx from "mobx";
 ```
 import * as mobxAlias from "mobx";
 ```
-For example, this cases are **not supported**:
+For example, these cases are **not supported**:
 ```
 const mobx = require("mobx")
 ```
